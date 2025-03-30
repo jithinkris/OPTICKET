@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ec!ej17kxd%cz0m%00+yefm^3)5idw)le85b91fk$5ep5)s1fc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["logiccraft.pythonanywhere.com"]
+ALLOWED_HOSTS = ["opticket-1.onrender.com"]
 
 
 # Application definition
