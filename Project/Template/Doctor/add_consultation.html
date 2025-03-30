@@ -1,0 +1,72 @@
+{% extends 'Doctor/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Consultation for {{ patient_booking.patient.username }}</h2>
+    <h3 class="mt-4">Current Token Number: {{ current_token }}</h3>
+
+    <p><strong>Doctor:</strong> {{ patient_booking.doctor.name }}</p>
+    <p><strong>Booking Date:</strong> {{ patient_booking.appointment_date }}</p>
+
+    <!-- Display Patient's Daily Health Records -->
+    <h3 class="mt-4">Daily Health Records</h3>
+    {% if health_records %}
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Systolic BP</th>
+                    <th>Diastolic BP</th>
+                    <th>Pulse</th>
+                    <th>Fasting Sugar</th>
+                    <th>Post-Meal Sugar</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in health_records %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.systolic_bp|default:"-" }}</td>
+                    <td>{{ record.diastolic_bp|default:"-" }}</td>
+                    <td>{{ record.pulse|default:"-" }}</td>
+                    <td>{{ record.blood_sugar_fasting|default:"-" }}</td>
+                    <td>{{ record.blood_sugar_post_meal|default:"-" }}</td>
+                    <td>{{ record.notes|default:"No notes" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No health records available.</p>
+    {% endif %}
+
+    <!-- Consultation Form -->
+    <h3 class="mt-4">Consultation Details</h3>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="symptoms" class="form-label">Symptoms</label>
+            <textarea id="symptoms" name="symptoms" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="disease_identified" class="form-label">Disease Identified</label>
+            <input type="text" id="disease_identified" name="disease_identified" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="remarks" class="form-label">Remarks</label>
+            <textarea id="remarks" name="remarks" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="medicines" class="form-label">Prescribed Medicines</label>
+            <textarea id="medicines" name="medicines" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Consultation</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'Doctor/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Today's Appointments</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>OP Number</th>
+
+
+                <th>Patient Name</th>
+                <th>Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.ConsltNumber }}</td>
+
+                <td>{{ booking.patient.first_name }} {{ booking.patient.last_name }}</td>
+                <td>{{ booking.time }}</td>
+                <td>
+                    {% if booking.status == 0 %}
+                    <a href="{% url 'User2:consult_patient' booking.id %}" class="btn btn-success">Consult</a>
+                    {% else %}
+                    Consultation done
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No bookings for today</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <form action="{% url 'User2:stop_consultation' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Stop Consultation</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

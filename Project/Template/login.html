@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <section class="login-section">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form id="login-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_type">User Type:</label>
+                    <select id="user_type" name="user_type" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Sub Admin">Doctor</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+
+            <div id="message"></div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#login-form').on('submit', function(event) {
+                event.preventDefault();
+
+                const formData = {
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    user_type: $('#user_type').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "Guest:login" %}',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        $('#message').html('<p>' + response.message + '</p>');
+                        if (response.message === 'Login successful') {
+                            if (response.user_type === 'Admin') {
+                                window.location.href = '{% url "Admin:admin_home" %}';
+                            } else if (response.user_type === 'Sub Admin') {
+                                window.location.href = '{% url "User2:doctor_home" %}';
+                            } else if (response.user_type === 'User') {
+                                window.location.href = '{% url "User2:doctor_home" %}';
+                            }
+                        }
+                    },
+                    error: function(error) {
+                        $('#message').html('<p class="error-msg">Invalid credentials. Please try again.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'Admin/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Doctor Consulting Tokens</h2>
+
+    <!-- Date Filter Form -->
+    <form method="GET" class="mb-3">
+        <label>Select Date: </label>
+        <input type="date" name="date" value="{{ selected_date }}" class="form-control w-25 d-inline">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Doctor</th>
+                <th>Current Consulting Token</th>
+                <th>Waiting Tokens</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor, tokens in doctor_tokens.items %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ doctor.name }}</td>
+                <td><strong>{{ tokens.current_token }}</strong></td>
+                <td>
+                    {% if tokens.waiting_tokens %}
+                        {{ tokens.waiting_tokens|join:", " }}
+                    {% else %}
+                        <span class="text-muted">No Waiting Tokens</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No token data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'Doctor/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Doctor Profile</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <td>{{ doctor.name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ doctor.email }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ doctor.phone }}</td>
+        </tr>
+        <tr>
+            <th>Specialization</th>
+            <td>{{ doctor.specialization }}</td>
+        </tr>
+        <tr>
+            <th>Experience</th>
+            <td>{{ doctor.experience }} years</td>
+        </tr>
+        <tr>
+            <th>Date Joined</th>
+            <td>{{ doctor.date_joined }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

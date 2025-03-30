@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header class="admin-header">
+        <nav class="admin-nav">
+            <div class="logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'Admin:admin_home' %}">Home</a></li>
+                <li><a href="{% url 'Admin:view_all_users' %}">View Patients</a></li>
+                <li><a href="{% url 'Admin:add_doctor' %}">Add Doctors</a></li>
+                <li><a href="{% url 'Admin:view_doctors' %}">View Doctors</a></li>
+                <li><a href="{% url 'Admin:admin_view_bookings' %}">Bookings</a></li>
+                <li><a href="{% url 'Admin:admin_view_payments' %}">Payments</a></li>
+                <li><a href="{% url 'Admin:admin_view_tokens' %}">Waiting list</a></li>
+
+                <li><a href="{% url 'Admin:view_feedback' %}">View Feedbacks</a></li>
+
+                <li><a href="{% url 'Guest:home' %}" class="logout-btn">Logout</a></li>
+                <br>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="admin-footer">
+        <p>&copy; 2025 Admin Panel</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'Admin/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Patient Feedbacks</h2>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Patient</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ feedback.patient.username }}</td>
+                <td>{{ feedback.message }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No feedbacks available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

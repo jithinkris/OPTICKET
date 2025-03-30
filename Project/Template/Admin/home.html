@@ -1,0 +1,32 @@
+{% extends 'Admin/base.html' %}
+
+{% block title %}Admin Home{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <h1>Welcome to Admin Dashboard</h1>
+    <div class="cards">
+        <div class="card">
+            <h3>Total Patients</h3>
+            <p>120</p>
+        </div>
+        <div class="card">
+            <h3>Total Staff</h3>
+            <p>15</p>
+        </div>
+        <div class="card">
+            <h3>Total Bookings</h3>
+            <p>8</p>
+        </div>
+        <div class="card">
+            <h3>Satisfied Patients</h3>
+            <p>5 New</p>
+        </div>
+    </div>
+    <div class="actions">
+        <a href="{% url 'Admin:view_all_users' %}" class="btn">View All Users</a>
+        <a href="#" class="btn">Manage Staff</a>
+        <a href="#" class="btn">Settings</a>
+    </div>
+</section>
+{% endblock %}

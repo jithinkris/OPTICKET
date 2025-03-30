@@ -1,0 +1,52 @@
+{% extends 'Admin/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Payments Overview</h2>
+
+    <div class="alert alert-info">
+        <strong>Total Revenue: ₹{{ total_revenue }}</strong> (₹{{ cost_per_booking }} per booking)
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Appointment Date</th>
+                <th>Consultation No.</th>
+                <th>OP Ticket</th>
+                <th>Status</th>
+                <th>Amount (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ booking.patient.username }}</td>
+                <td>{{ booking.doctor.name }}</td>
+                <td>{{ booking.appointment_date }}</td>
+                <td>{{ booking.ConsltNumber }}</td>
+                <td>#{{ booking.opticket_number }}</td>
+                <td>
+                    {% if booking.status == 0 %}
+                        <span class="badge bg-warning">Pending</span>
+                    {% elif booking.status == 1 %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% endif %}
+                </td>
+                <td>₹{{ cost_per_booking }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No bookings available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

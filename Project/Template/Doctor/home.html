@@ -1,0 +1,43 @@
+{% extends 'Doctor/base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="mb-4">Welcome, Dr. {{ name }}</h1>
+    <p class="lead">Manage your appointments and view patient details easily.</p>
+
+    <div class="row mt-4">
+        <!-- View Patients -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">View Patients</h5>
+                    <p class="card-text">Check patient details and appointments.</p>
+                    <a href="{% url 'User2:doctor_view_bookings' %}" class="btn btn-primary">View Patients</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Profile -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">View Profile</h5>
+                    <p class="card-text">Update your profile and contact details.</p>
+                    <a href="{% url 'User2:doctor_profile' %}" class="btn btn-secondary">View Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Logout</h5>
+                    <p class="card-text">Securely log out from your account.</p>
+                    <a href="{% url 'Guest:home' %}" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
